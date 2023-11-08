@@ -10,9 +10,9 @@
 <br>
 
 <h4 align="center">
-<a href="https://github.com/yeazin/Project-Coding-Pari-Na#-project-installation-"> Project Installation</a> | 
-<a href="https://github.com/yeazin/Project-Coding-Pari-Na#project-flow"> Project Flow </a>
-|<a href="https://github.com/yeazin/Project-Coding-Pari-Na#-project-documention-"> Project Documention </a>
+<a href="https://github.com/yeazin/The-Socio?tab=readme-ov-file#-project-installation-"> Project Installation</a> | 
+<a href="https://github.com/yeazin/The-Socio?tab=readme-ov-file#project-flow"> Project Flow </a>
+|<a href="https://github.com/yeazin/The-Socio?tab=readme-ov-file#-project-documention-"> Project Documention </a>
 
 </h4> 
 
@@ -34,6 +34,7 @@ git clone https://github.com/yeazin/The-Socio.git
 ```bash
 # Use this on Windows
 python -m venv env
+
 # Use this on Linux and Mac
 python3 -m venv env
 ```
@@ -53,11 +54,9 @@ source env/bin/activate
 ```bash
 
 # Windows
-
 pip install -r requirements/dev_requirements.txt
 
 # Linux and Mac
-
 pip3 install -r requirements/dev_requirements.txt
 
 ```
@@ -95,11 +94,9 @@ python manage.py createsuperuser
 # run django development server
 
 # Windows 
-
 py manage.py runserver
 
 # Linux & Mac
-
 python3 manage.py runserver
 
 ```
@@ -117,17 +114,17 @@ error "User has no Profile"]
 ```bash 
 
     docs/ # docs file of the Project
-    
+
     requirements/
         |-- dev_requirements.txt # Requirements for the project
 
     socio/
         |__ config/  #Root Config folder
-                |-- __init__.py
-                |-- settings.py # All the settings 
-                |-- urls.py (Root URL file)
-                |-- wsgi.py
-                |-- asgi.py
+            |-- __init__.py
+            |-- settings.py # All the settings 
+            |-- urls.py (Root URL file)
+            |-- wsgi.py
+            |-- asgi.py
         
         |__ accounts/
             |-- __init.py
