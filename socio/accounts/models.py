@@ -4,7 +4,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from accounts.managers import CustomUserManager
-from util_base.models._initModels import TimeStampMixin
+from util_base.utils._choices import UserRolesChoices
 
 
 
@@ -13,9 +13,16 @@ from util_base.models._initModels import TimeStampMixin
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=200, blank=True, unique=True, null=True)
     email = models.EmailField("email_address", unique=True, null=True, blank=True)
+    user_role = models.CharField(
+        max_length=20,
+        null=True,
+        choices=UserRolesChoices.choices,
+        default=UserRolesChoices.SOCIAN
+    )
 
     password = models.CharField(max_length=1500, null=True)
     confirm_password = models.CharField(max_length=1500, null=True)
+
 
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["email"]
