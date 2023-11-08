@@ -53,6 +53,7 @@ INSTALLED_APPS += [
 
 ## Third Party apps installed in Socion Platform
 INSTALLED_APPS += [
+    'rest_framework',
     'drf_yasg',
     'rest_framework_simplejwt',
 ]
