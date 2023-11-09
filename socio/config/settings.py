@@ -49,6 +49,7 @@ INSTALLED_APPS = [
 
 INSTALLED_APPS += [
     'accounts.apps.AccountsConfig',
+    'socio_profile.apps.SocioProfileConfig',
 ]
 
 ## Third Party apps installed in Socion Platform
