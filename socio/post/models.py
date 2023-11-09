@@ -26,11 +26,37 @@ class SocioPost(TimeStampMixin):
                                         related_name="liked_post")
 
 
+    @property
+    def get_post_img_url(self):
+        if self.post_image and hasattr(self.post_image, 'url'):
+            return self.post_image.url
+        
+    
+    @property
+    def get_post_author(self):
+        return self.post_author
+
     def __str__(self) -> str:
         return "Title : {}".format(
             self.post_title
         )
     
+
+    @property
+    def total_likes (self):
+        return self.post_likes.count()
+    
+
+    @property
+    def total_comments(self):
+        return self._comments.count()
+    
+    @property
+    def post_comments(self):
+        return self._comments.select_related(
+            "comment_author"
+        )
+     
 
     class Meta:
         verbose_name_plural = "Socio Post Archive"
