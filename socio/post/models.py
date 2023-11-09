@@ -34,6 +34,7 @@ class SocioPost(TimeStampMixin):
 
     @property
     def get_post_img_url(self):
+        # returing the absolute image url 
         if self.post_image and hasattr(self.post_image, 'url'):
             return self.post_image.url
         
