@@ -9,8 +9,6 @@
 
 </h6>
 
-<br>
-
 <h4 align="center">
 <a href="https://github.com/yeazin/The-Socio?tab=readme-ov-file#-project-installation-"> Project Installation</a> | 
 <a href="https://github.com/yeazin/The-Socio?tab=readme-ov-file#project-flow"> Project Flow </a>
