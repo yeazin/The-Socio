@@ -3,7 +3,10 @@
 Socio Profile Views 
 """
 
-from rest_framework import generics
+from rest_framework import (
+    generics, 
+    response
+)
 from rest_framework.throttling import (
     UserRateThrottle,
     AnonRateThrottle
@@ -13,13 +16,44 @@ from post.models import (
     SocioPost
 )
 from socio_profile.serialilzers import (
-    SocioPostSelfSocianSerializer
+    SocioPostSelfSocianSerializer,
+    SocioProfileFuncsSerializer
 )
 
 
 import logging
 
 logger = logging.getLogger(__name__)
+
+
+
+###### ####### ####
+### Socio profile Views 
+
+
+## Socio Profile Self View 
+
+class SocioProfileSelfView(generics.GenericAPIView):
+
+    throttle_classes = [UserRateThrottle]
+    serializer_class = SocioProfileFuncsSerializer
+    permission_classes = [IsSocian]
+
+    def get(self,request):
+        serializer = SocioProfileFuncsSerializer(request.user.socio)
+        return response.Response(serializer.data)
+    
+
+## Socio Profile Self Update View 
+
+class SocioProfileSelfUpdateView(generics.UpdateAPIView):
+
+    throttle_classes = [UserRateThrottle]
+    serializer_class = SocioProfileFuncsSerializer
+    permission_classes = [IsSocian]
+
+    def get_object(self):
+        return self.request.user.socio
 
 
 ###### ####### ####
