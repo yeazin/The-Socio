@@ -12,7 +12,7 @@ from socio_profile.models import (
 
 
 ### #### ##########
-## Socio Profile 
+## Minified Version 
 
 class SocioProfileMinifiedserializer(TimeStampMixinSerializer):
 
@@ -24,3 +24,30 @@ class SocioProfileMinifiedserializer(TimeStampMixinSerializer):
             "socio_user_obj_id",
             "full_name"
         ]
+
+
+
+### #### ##########
+## Self post View Serializer 
+
+class SocioPostSelfSocianSerializer(TimeStampMixinSerializer):
+
+    socio_post_obj_id = serializers.CharField(source="id", read_only=True)
+
+    class Meta:
+        from post.models import SocioPost
+
+        model = SocioPost
+        fields = [
+            "socio_post_obj_id",
+            "post_title",
+            "total_likes",
+            "total_comments",
+        ] 
+
+        read_only_fields = [
+            "socio_post_obj_id",
+            "total_likes",
+            "total_comments",
+        ]
+
