@@ -1,5 +1,5 @@
 
-![original](docs/media/socio.png)
+![original](docs/img/socio.png)
 <!-- <h1 align="center"> The Socio Platform </h1>
 <h5 align="center">Let us connect though</h5> -->
 <h6 align="Center">
