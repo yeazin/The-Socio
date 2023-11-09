@@ -33,7 +33,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.username)
+
+        try:
+            if self.socio:
+                return self.socio.__str__()
+        except :
+            return self.username
 
     class Meta:
         verbose_name_plural = "User"

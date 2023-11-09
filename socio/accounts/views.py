@@ -8,6 +8,7 @@ from rest_framework import (
     status,
     serializers
 )
+from rest_framework import generics
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -21,9 +22,11 @@ from rest_framework.throttling import (
 
 
 from accounts.models import User
+from socio_profile.models import SocioUser
 from accounts.serializers import (
     UserChangePasswordSerializer,
-    LoginSerializer
+    LoginSerializer,
+    CreateProfileSocioSerializer
 )
 
 
@@ -96,3 +99,12 @@ class LoginApiView(GenericAPIView):
             return Response({
                 "na": "na"
             })
+        
+
+
+class SocioCreateView(generics.CreateAPIView):
+
+    serializer_class = CreateProfileSocioSerializer
+    permission_classes = ()
+    UserRateThrottle = [AnonRateThrottle]
+    queryset = SocioUser.objects.filter()
