@@ -17,7 +17,9 @@ from post.models import (
 
 from post.serializers import (
     SocioPostFuncsSerializer,
-    SocioPostDetailedSerializer
+    SocioPostDetailedSerializer,
+    SocioCommentFuncsSerializer,
+    SocioBridgeofPostAndUserSerializer
 )
 
 
@@ -72,3 +74,55 @@ class SocioPostFuncsView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsSocian]
     serializer_class = SocioPostFuncsSerializer
     queryset = SocioPost.objects.filter()
+
+
+
+###### ####### ####
+### Socio Comment Views
+
+
+class SocioPostCommentCreateView(generics.CreateAPIView):
+
+    throttle_classes = [UserRateThrottle]
+    permission_classes = [IsSocian]
+    serializer_class = SocioCommentFuncsSerializer
+    queryset = SocioPostComment.objects.filter()
+
+
+## Read, Update , Delete View 
+class SocioPostCommentFuncsView(generics.RetrieveUpdateDestroyAPIView):
+
+    throttle_classes = [UserRateThrottle]
+    permission_classes = [IsSocian]
+    serializer_class = SocioCommentFuncsSerializer
+    queryset = SocioPostComment.objects.filter()
+
+
+
+
+###### ####### ####
+### Socio Post and Likes Bridge Views
+
+## The following views will be hidden functionlities 
+## Becaues these views are only create and delete view 
+## Frontend devs will utilize these views in some point
+## that the end user don`t see the changes 
+
+# Create View  
+
+class SocioBridgeofPostUserCreateView(generics.CreateAPIView):
+
+    throttle_classes = [UserRateThrottle]
+    permission_classes = [IsSocian]
+    serializer_class = SocioBridgeofPostAndUserSerializer
+    queryset = BridgeOfPostUserLikes.objects.filter()
+
+
+# Delete View 
+
+class SocioBridgeofPostUserDeleteView(generics.DestroyAPIView):
+
+    throttle_classes = [UserRateThrottle]
+    permission_classes = [IsSocian]
+    serializer_class = SocioBridgeofPostAndUserSerializer
+    queryset = BridgeOfPostUserLikes.objects.filter()

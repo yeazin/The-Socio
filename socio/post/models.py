@@ -25,6 +25,7 @@ class SocioPost(TimeStampMixin):
                                         through="BridgeOfPostUserLikes",
                                         related_name="liked_post")
 
+    ## Property of Socio Post 
 
     @property
     def get_post_img_url(self):
@@ -36,11 +37,6 @@ class SocioPost(TimeStampMixin):
     def get_post_author(self):
         return self.post_author
 
-    def __str__(self) -> str:
-        return "Title : {}".format(
-            self.post_title
-        )
-    
 
     @property
     def total_likes (self):
@@ -51,10 +47,17 @@ class SocioPost(TimeStampMixin):
     def total_comments(self):
         return self._comments.count()
     
+    
     @property
     def post_comments(self):
         return self._comments.select_related(
             "comment_author"
+        )
+    
+
+    def __str__(self) -> str:
+        return "Title : {}".format(
+            self.post_title
         )
      
 
@@ -89,6 +92,17 @@ class BridgeOfPostUserLikes(TimeStampMixin):
     )
 
     
+    ## Property of BridgeOfPostUserLikes
+
+    @property
+    def get_liked_author(self):
+        return self.liked_author
+    
+
+    @property
+    def get_partent_post(self):
+        return self.liked_post
+
     def __str__(self) -> str:
         return "Post : {} | Author : {}".format(
             self.liked_post.__str__(),
@@ -129,6 +143,13 @@ class SocioPostComment(TimeStampMixin):
     )
     comment = models.CharField(max_length=200, null=True, verbose_name="Comment")
 
+
+    ## Property of Socio Comment
+
+    @property
+    def get_comment_author(self):
+        # returing the comment author
+        return self.comment_author
 
     def __str__(self) -> str:
         return "Post : {} | Author : {}".format(
