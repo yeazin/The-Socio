@@ -17,9 +17,17 @@ class SocioUser(TimeStampMixin):
     user = models.OneToOneField("accounts.User", on_delete=models.CASCADE, null=True, 
                                 related_name="socio", verbose_name="User", unique=True)
     full_name = models.CharField(max_length=200, null=True, verbose_name="Full Name")
+    profile_image = models.ImageField(upload_to='media/socio/', blank=True)
     phone_number = models.CharField(max_length=11, null=True, unique=True, verbose_name="Phone Number")
     email = models.EmailField(max_length=100, unique=True, null=True, verbose_name="Email")
 
+
+    ## Property of Socio User 
+    @property
+    def get_profile_img_url(self):
+        if self.profile_image and hasattr(self.profile_image, 'url'):
+            return self.profile_image.url
+        
 
     def __str__(self) -> str:
         return "Name: {} | Email: {}".format(
