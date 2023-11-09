@@ -20,6 +20,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
+STATIC_DIR=os.path.join(BASE_DIR,'static')
+MEDIA_DIR=os.path.join(BASE_DIR,'media')
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -50,6 +53,7 @@ INSTALLED_APPS = [
 INSTALLED_APPS += [
     'accounts.apps.AccountsConfig',
     'socio_profile.apps.SocioProfileConfig',
+    'post.apps.PostConfig',
 ]
 
 ## Third Party apps installed in Socion Platform
@@ -217,7 +221,8 @@ SIMPLE_JWT = {
 FORMATTERS = (
     {
         "verbose": {
-            "format": "{levelname} {asctime:s} {threadName} {thread:d} {module} {filename} {lineno:d} {name} {funcName} {process:d} {message}",
+            "format": "{levelname} {asctime:s} {threadName} {thread:d} \
+                {module} {filename} {lineno:d} {name} {funcName} {process:d} {message}",
             "style": "{",
         },
         "simple": {
