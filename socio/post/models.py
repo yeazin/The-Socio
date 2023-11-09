@@ -28,6 +28,11 @@ class SocioPost(TimeStampMixin):
     ## Property of Socio Post 
 
     @property
+    def get_socio_post(self):
+        return self
+
+
+    @property
     def get_post_img_url(self):
         if self.post_image and hasattr(self.post_image, 'url'):
             return self.post_image.url
