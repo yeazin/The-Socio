@@ -7,4 +7,4 @@ class UserAdmin(admin.ModelAdmin):
         'username',
         'user_role'
     ]
-admin.site.register(User,UserAdmin)
+admin.site.register(User)
