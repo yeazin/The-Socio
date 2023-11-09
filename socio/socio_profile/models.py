@@ -23,11 +23,24 @@ class SocioUser(TimeStampMixin):
 
 
     ## Property of Socio User 
+
     @property
     def get_profile_img_url(self):
+        # returing the absolute image url 
         if self.profile_image and hasattr(self.profile_image, 'url'):
             return self.profile_image.url
         
+
+    @property
+    def get_total_posts(self):
+        # returning total post count by the socio user
+        return self.posts.count()
+    
+    @property
+    def get_social_links(self):
+        # returning the social link of socio user
+        return self.social_link
+    
 
     def __str__(self) -> str:
         return "Name: {} | Email: {}".format(

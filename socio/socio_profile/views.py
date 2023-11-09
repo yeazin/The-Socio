@@ -12,12 +12,18 @@ from rest_framework.throttling import (
     AnonRateThrottle
 )
 from util_base.utils._permission import IsSocian
+from socio_profile.models import (
+    SocioUser,
+    SocialLinks
+)
 from post.models import (
     SocioPost
 )
 from socio_profile.serialilzers import (
     SocioPostSelfSocianSerializer,
-    SocioProfileFuncsSerializer
+    SocioProfileFuncsSerializer,
+    SocioProfileDetailedSerializer,
+    SocialLinkSerializer
 )
 
 
@@ -40,7 +46,7 @@ class SocioProfileSelfView(generics.GenericAPIView):
     permission_classes = [IsSocian]
 
     def get(self,request):
-        serializer = SocioProfileFuncsSerializer(request.user.socio)
+        serializer = SocioProfileDetailedSerializer(request.user.socio)
         return response.Response(serializer.data)
     
 
@@ -54,6 +60,64 @@ class SocioProfileSelfUpdateView(generics.UpdateAPIView):
 
     def get_object(self):
         return self.request.user.socio
+
+
+## Socio User list view 
+
+class SocioProfileListView(generics.ListAPIView):
+
+    throttle_classes = [UserRateThrottle]
+    serializer_class = SocioProfileDetailedSerializer
+    permission_classes = [IsSocian]
+    queryset = SocioUser.objects.filter()
+
+
+###### ####### ####
+### Social Links  Views
+
+
+# Social Links Create View 
+
+class SocialLinksCreateView(generics.CreateAPIView):
+
+    throttle_classes = [UserRateThrottle]
+    permission_classes = [IsSocian]
+    serializer_class = SocialLinkSerializer
+    queryset = SocialLinks.objects.filter().select_related(
+        "socio_user"
+    )
+
+
+
+# Social Links Update View 
+class SocialLinksSelfUpdateView(generics.UpdateAPIView):
+
+    throttle_classes = [UserRateThrottle]
+    serializer_class = SocialLinkSerializer
+    permission_classes = [IsSocian]
+    queryset = SocialLinks.objects.filter()
+
+    def get_object(self):
+        return self.request.user.socio
+
+# Social Links Self View 
+class SocialLinkseSelfView(generics.ListAPIView):
+
+    throttle_classes = [UserRateThrottle]
+    serializer_class = SocialLinkSerializer
+    permission_classes = [IsSocian]
+
+    
+    def get_current_socian(self):
+        return self.request.user.socio
+    
+    def get_queryset(self):
+        return SocialLinks.objects.filter(
+            socio_user=self.get_current_socian()
+        ).order_by(
+            "-created_at"
+        )
+
 
 
 ###### ####### ####
