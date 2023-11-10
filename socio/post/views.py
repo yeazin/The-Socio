@@ -12,6 +12,7 @@ from rest_framework.throttling import (
     AnonRateThrottle
 )
 from util_base.utils._permission import IsSocian
+from socio_profile.models import SocioUser
 from post.models import (
     SocioPost,
     SocioPostComment,
@@ -62,6 +63,43 @@ class SocioPostListView(generics.ListAPIView):
         "post_description",
         "post_author__full_name"
     ]
+
+
+## Post of List view of Followers 
+
+class SocioPostListViewofFollowersView(generics.ListAPIView):
+
+    throttle_classes = [UserRateThrottle]
+    permission_classes = [IsSocian]
+    serializer_class = SocioPostDetailedSerializer
+
+    # search Functionality
+    filter_backends = [filters.SearchFilter]
+    search_fields = [
+        "post_title",
+        "post_description",
+        "post_author__full_name"
+    ]
+
+    # Getting the current logged in Socio User
+    def get_current_socian(self):
+        return self.request.user.socio
+    
+    def get_queryset(self):
+
+        # getting the current socio User followers list
+        current_socio_user_followers_list = SocioUser.objects.filter(
+            id=self.get_current_socian().id).first().follows.values("id")
+        
+        # returning the followers post
+        return SocioPost.objects.filter(
+            post_author__in=current_socio_user_followers_list
+            ).select_related(
+            "post_author",
+        ).order_by(
+            "-created_at"
+        )
+
 
 
 ## Post Detailed View 

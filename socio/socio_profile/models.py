@@ -45,12 +45,16 @@ class SocioUser(TimeStampMixin):
     @property
     def total_followers_list(self):
         # total followers list
-        return self.follows
+        return self.follows.prefetch_related(
+            "user"
+        )
     
     @property
     def total_followings_list(self):
         # total followings list
-        return SocioUser.objects.filter(follows=self)
+        return SocioUser.objects.filter(follows=self).prefetch_related(
+            "user"
+        )
     
 
 
@@ -62,7 +66,7 @@ class SocioUser(TimeStampMixin):
         
 
     @property
-    def get_total_posts(self):
+    def total_posts(self):
         # returning total post count by the socio user
         return self.posts.count()
     

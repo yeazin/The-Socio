@@ -2,7 +2,7 @@
 """
 Socio Profile Views 
 """
-
+import uuid
 from rest_framework import (
     generics, 
     response
@@ -23,7 +23,8 @@ from socio_profile.serialilzers import (
     SocioPostSelfSocianSerializer,
     SocioProfileFuncsSerializer,
     SocioProfileDetailedSerializer,
-    SocialLinkSerializer
+    SocialLinkSerializer,
+    SocioFollowUnfollowSerializer
 )
 
 
@@ -145,3 +146,73 @@ class SocioPostSelfListView(generics.ListAPIView):
         ).order_by(
             "-created_at"
         )
+
+
+### ###### ################ #######
+## ###### 
+## Socio Follow / Unfollow View
+
+class SocioFollowUnfollowView(generics.GenericAPIView):
+
+    throttle_classes = [UserRateThrottle]
+    permission_classes = [IsSocian]
+    serializer_class = SocioFollowUnfollowSerializer
+
+
+    # Getting the current logged in Socio User
+    def get_current_socian(self):
+        return self.request.user.socio
+    
+
+    # checking if the given UUID is Valid or NOT
+    def is_valid_uuid(self,val):
+        try:
+            uuid.UUID(str(val))
+            return True
+        except ValueError:
+            return False
+        
+    
+    def post(self,request):
+        
+        ## Getting the data of id and action
+        data = {
+        "get_action" : request.POST.get("action_name", None),
+        "get_socian_id" : request.POST.get("socio_user_id", None)
+        }
+
+        # checking if the given value is UUID or Not
+        if not self.is_valid_uuid(data["get_socian_id"]):
+            return response.Response({
+                "Invalid" : "UUID is Invalid"
+            })
+        
+        # checking if the given socio user id is on database or not
+        if not SocioUser.objects.filter(id=data["get_socian_id"]).exists():
+            return response.Response({
+                "User ID Err" : "Socio User id Not Match"
+            })
+        
+        # initializing the follower and current socio user follower list
+        get_socian_follower_id = SocioUser.objects.filter(id=data["get_socian_id"]).first()
+        get_current_user_follwers_list = SocioUser.objects.filter(id=self.get_current_socian().id).first()
+
+        if data["get_action"] == "follow":
+            if get_current_user_follwers_list.follows.contains(get_socian_follower_id):
+                return response.Response({
+                    "Exists" : "Sorry The User is already following the Current User"
+                })
+            
+            get_current_user_follwers_list.follows.add(get_socian_follower_id)
+            return response.Response({
+                "Success" : "Added the follower to current socian follower list"
+            })
+        
+        if data["get_action"] == "unfollow":
+            get_current_user_follwers_list.follows.remove(get_socian_follower_id)
+            return response.Response({
+                "Success" : "Removed the follower from current socian follower list"
+            })
+
+
+

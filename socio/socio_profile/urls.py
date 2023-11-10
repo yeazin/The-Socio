@@ -13,6 +13,7 @@ from socio_profile.views import (
     SocialLinksCreateView,
     SocialLinksSelfUpdateView,
     SocialLinkseSelfView,
+    SocioFollowUnfollowView
 )
 
 app_name = "socian_profile"
@@ -30,7 +31,8 @@ social_links_url = [
 ]
 
 socio_url = [
-    path("list/", SocioProfileListView.as_view())
+    path("list/", SocioProfileListView.as_view()),
+    path("follow/unfollow/", SocioFollowUnfollowView.as_view()),
 ]
 
 urlpatterns = [
