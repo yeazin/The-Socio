@@ -3,7 +3,10 @@
 Post Views 
 """
 
-from rest_framework import generics
+from rest_framework import (
+    generics,
+    filters
+)
 from rest_framework.throttling import (
     UserRateThrottle,
     AnonRateThrottle
@@ -52,6 +55,13 @@ class SocioPostListView(generics.ListAPIView):
     ).order_by(
         "-created_at"
     )
+    # search Functionality 
+    filter_backends = [filters.SearchFilter]
+    search_fields = [
+        "post_title",
+        "post_description",
+        "post_author__full_name"
+    ]
 
 
 ## Post Detailed View 
