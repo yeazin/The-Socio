@@ -5,6 +5,16 @@
 ![Version](https://img.shields.io/badge/Version-1.0.0-black?style=flat)
 </h6>
 
+```bash
+
+    One Minute Talk Before we start.
+    All the code written to the project is well commented.
+    If any confusion happens You can contact me 
+    through the contact section. Thanks |
+
+```
+  
+
 <h3>Table of Content ...........</h3>
 <h4>
 <a href="https://github.com/yeazin/The-Socio/tree/main/docs#-authentication-">. Authentication </a> <br> 
@@ -169,6 +179,7 @@
 #### Creating Post 
 
 ```bash 
+
     All Socio User can create Post with the followings fields. 
 
     {
@@ -190,4 +201,45 @@
 
 ```
 
+#### Delete  Post
+
+```bash 
+
+    All Socio User can delete their post. 
+    
+```
+
+
 <h3 align="center"> API Collection </h3>
+
+All the API collection has two differnt end points to view <br>
+One - Swagger Version | [127.0.0.1:8000/api/v1/docs/](http://127.0.0.1:8000/api/v1/docs/) <br>
+Two - Redoc Version | [127.0.0.1:8000/api/v1/docs/re/](http://127.0.0.1:8000/api/v1/docs/re/)
+<br>
+
+> Accounts API <br>
+    Will be found under Accounts Section <br>
+
+> Social profile <br>
+    Will Be found Social Profile Section <br>
+    
+> Socio Post <br>
+    Will be found under Post section 
+
+<br>
+
+### Thanks for Viewing the Documention
+If you have any quiry regarding this project
+Feel free to contact me :
+
+Email : naz.yeasin@gmail.com | nazrulislamyeasin@gmail.com
+
+
+
+
+
+
+
+
+
+
