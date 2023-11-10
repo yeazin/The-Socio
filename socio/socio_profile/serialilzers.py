@@ -140,13 +140,13 @@ class SocioProfileDetailedSerializer(TimeStampMixinSerializer):
             "total_followings",
             "total_followings_list",
 
-            "get_total_posts",
+            "total_posts",
             "get_social_links",
         ]
 
         read_only_fields = [
             "get_profile_img_url",
-            "get_total_posts",
+            "total_posts",
             "get_social_links",
         
             "total_followers",
@@ -179,4 +179,16 @@ class SocioPostSelfSocianSerializer(TimeStampMixinSerializer):
             "total_likes",
             "total_comments",
         ]
+
+
+
+### ## ###########
+## Follow / Unfollow Serializer 
+
+
+class SocioFollowUnfollowSerializer(serializers.Serializer):
+
+    action_name = serializers.CharField()
+    socio_user_id = serializers.CharField()
+
 

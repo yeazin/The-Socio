@@ -10,6 +10,7 @@ from post.views import (
     SocioPostListView,
     SocioPostDetailedView,
     SocioPostFuncsView,
+    SocioPostListViewofFollowersView,
 
     SocioPostCommentCreateView,
     SocioPostCommentFuncsView,
@@ -23,6 +24,7 @@ app_name = "post"
 post_url = [
     path("create/", SocioPostCreateView.as_view()),
     path("list/", SocioPostListView.as_view()),
+    path("list/of/followers/", SocioPostListViewofFollowersView.as_view()),
     path("view/<str:pk>/", SocioPostDetailedView.as_view()),
     path("funcs/<str:pk>/", SocioPostFuncsView.as_view()),
 ]
