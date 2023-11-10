@@ -12,7 +12,6 @@ from util_base.utils._choices import UserRolesChoices
 
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=200, blank=True, unique=True, null=True)
-    # email = models.EmailField("email_address", unique=True, null=True, blank=True)
     user_role = models.CharField(
         max_length=20,
         null=True,
@@ -25,7 +24,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
     USERNAME_FIELD = "username"
-    # REQUIRED_FIELDS = ["username"]
 
     objects = CustomUserManager()
 
