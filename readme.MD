@@ -169,9 +169,9 @@ error "User has no Profile"]
 
 <h2 align="center"> Project Documention </h2>
 
-#### Thanks for Tagging alone with the Technical Documention , Read the [Project Documtion here](https://github.com/yeazin/Project-Coding-Pari-Na/tree/main/docs#-coding-pari-na-documention-) 
+#### Thanks for Tagging alone with the Technical Documention , Read the [Project Documtion here ->](https://github.com/yeazin/The-Socio/tree/main/docs#welcome-to-project-documention) 
 
-Project Documention URL :  [https://thesocioplatform.docs](https://github.com/yeazin/Project-Coding-Pari-Na/tree/main/docs#-coding-pari-na-documention-)
+Project Documention URL :  [https://thesocioplatform.docs](https://github.com/yeazin/The-Socio/tree/main/docs#welcome-to-project-documention)
 
 Wish you a Great Time ...
 
