@@ -106,6 +106,7 @@ python manage.py createsuperuser
 
 [Note : After creating Superuser go to the admin panel
 and link the user with SOCIO PROFILE USER option .
+and Set the user role permission to 'Socian'. 
 Otherwise You won`t be able to access any endpoint we have.]
 
 ```
