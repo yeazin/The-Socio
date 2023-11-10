@@ -22,8 +22,37 @@ class SocioUser(TimeStampMixin):
     email = models.EmailField(max_length=100, unique=True, null=True, verbose_name="Email")
     bio = models.TextField(blank=True, null=True, verbose_name="Profile Bio")
 
+    ## Symmetrical = False 
+    # That means for example 
+    # Alice and Bob are friends 
+    # if Alice sent a follow request to Bob then Bob is followed by Alice 
+    # But Alice automatically cannot be followed by Bob if Bob don`t the follow request to Alice
+    follows = models.ManyToManyField("self", symmetrical=False, related_name="followed_by",blank=True)
+
 
     ## Property of Socio User 
+
+    @property
+    def total_followers(self):
+        # total followers count
+        return self.follows.count()
+    
+    @property
+    def total_followings(self):
+        # total following count
+        return SocioUser.objects.filter(follows=self).count()
+    
+    @property
+    def total_followers_list(self):
+        # total followers list
+        return self.follows
+    
+    @property
+    def total_followings_list(self):
+        # total followings list
+        return SocioUser.objects.filter(follows=self)
+    
+
 
     @property
     def get_profile_img_url(self):

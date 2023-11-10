@@ -121,6 +121,9 @@ class SocioProfileDetailedSerializer(TimeStampMixinSerializer):
 
     socio_user_obj_id = serializers.CharField(source="id", read_only=True)
     get_social_links = SocialLinkSerializer(read_only=True)
+    total_followers_list = SocioProfileMinifiedserializer(read_only=True,many=True)
+    total_followings_list = SocioProfileMinifiedserializer(read_only=True,many=True)
+
 
     class Meta:
         model = SocioUser
@@ -131,6 +134,12 @@ class SocioProfileDetailedSerializer(TimeStampMixinSerializer):
             "phone_number",
             "email",
             "bio",
+
+            "total_followers",
+            "total_followers_list",
+            "total_followings",
+            "total_followings_list",
+
             "get_total_posts",
             "get_social_links",
         ]
@@ -139,6 +148,11 @@ class SocioProfileDetailedSerializer(TimeStampMixinSerializer):
             "get_profile_img_url",
             "get_total_posts",
             "get_social_links",
+        
+            "total_followers",
+            "total_followers_list",
+            "total_followings",
+            "total_followings_list",
         ]
 
 
