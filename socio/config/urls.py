@@ -9,7 +9,6 @@ from django.conf import settings
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
     TokenRefreshView,
 )
 
@@ -29,10 +28,9 @@ api_version = 'api/v1'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(f'{api_version}/account/', include('accounts.urls')),
-    path(f'{api_version}/post/', include('post.urls')),
-    path(f'{api_version}/socian/', include('socio_profile.urls')),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path(f'account/{api_version}/', include('accounts.urls')),
+    path(f'post/{api_version}/', include('post.urls')),
+    path(f'socian/{api_version}/', include('socio_profile.urls')),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
 

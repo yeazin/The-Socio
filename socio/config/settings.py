@@ -33,7 +33,6 @@ SECRET_KEY =env('secret_key')
 DEBUG = env.bool('debug')
 
 ALLOWED_HOSTS = env.list('allowed_hosts')
-print("allowed host", ALLOWED_HOSTS, DEBUG, SECRET_KEY)
 
 
 # Application definition
@@ -63,6 +62,7 @@ INSTALLED_APPS += [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -98,12 +98,28 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
+
+if env.bool('local'):
+
+    DATABASES = {
+    # Sqlite3
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': env('local_engine_name'),
+        'NAME': BASE_DIR/ env('local_db_name'),
     }
 }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': env('cloud_engine_name'),
+            'NAME': env('cloud_db_name'),
+            'USER': env('cloud_db_user_name'),
+            'PASSWORD': env('cloud_db_password'),
+            'HOST': env('cloud_db_host'),
+            'PORT': env('cloud_db_port'),
+        }
+    }
+
 
 
 # Password validation
