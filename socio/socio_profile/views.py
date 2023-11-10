@@ -8,8 +8,7 @@ from rest_framework import (
     response
 )
 from rest_framework.throttling import (
-    UserRateThrottle,
-    AnonRateThrottle
+    UserRateThrottle
 )
 from util_base.utils._permission import IsSocian
 from socio_profile.models import (
@@ -195,7 +194,8 @@ class SocioFollowUnfollowView(generics.GenericAPIView):
         
         # initializing the follower and current socio user follower list
         get_socian_follower_id = SocioUser.objects.filter(id=data["get_socian_id"]).first()
-        get_current_user_follwers_list = SocioUser.objects.filter(id=self.get_current_socian().id).first()
+        get_current_user_follwers_list = SocioUser.objects.filter(
+                        id=self.get_current_socian().id).first()
 
         if data["get_action"] == "follow":
             if get_current_user_follwers_list.follows.contains(get_socian_follower_id):

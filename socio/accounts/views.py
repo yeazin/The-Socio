@@ -12,7 +12,6 @@ from rest_framework import generics
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.throttling import (
@@ -39,7 +38,7 @@ class LoginApiView(GenericAPIView):
 
     serializer_class = LoginSerializer
     permission_classes = ()
-    # UserRateThrottle = [AnonRateThrottle]
+    UserRateThrottle = [AnonRateThrottle]
 
     def post(self,request):
 
@@ -59,6 +58,8 @@ class LoginApiView(GenericAPIView):
             'socio__phone_number',
             'socio__email'
         )
+
+        # checking if the user found or not
         if match_user.exists():
             user = authenticate(username=match_user.first().username, 
                                 password=data['password'])
@@ -81,7 +82,7 @@ class LoginApiView(GenericAPIView):
 
 
         
-
+### Socio Profile Register Create View
 
 class SocioProfileRegisterView(generics.CreateAPIView):
 
@@ -89,8 +90,6 @@ class SocioProfileRegisterView(generics.CreateAPIView):
     permission_classes = ()
     UserRateThrottle = [AnonRateThrottle]
     queryset = SocioUser.objects.filter()
-
-
 
 
 

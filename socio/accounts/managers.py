@@ -9,10 +9,7 @@ class CustomUserManager(BaseUserManager):
     We can also pass Full name , email and password here"""
 
     def create_user(self,  password, **extra_fields):
-        """Create and save a User given email and password"""
-        # if not email:
-        #     raise ValueError("The Email is must be set")
-        # email = self.normalize_email(email)
+        
         user = self.model(**extra_fields)
         user.set_password(password)
         user.save()
