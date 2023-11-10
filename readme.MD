@@ -70,6 +70,27 @@ py create_log.py
 python3 create_log.py
 ```
 
+#### .Env File Setup 
+
+```bash 
+
+    The project won`t run if we don`t use the .env file . 
+    Contact us for the .env file. 
+
+    Paste the .env file on the ROOT directory of the project . 
+
+```
+
+#### Database Setup 
+
+```bash 
+
+    We can use any sql and no-sql database in our project 
+    there will be option with perameters in the .env file.
+    
+```
+
+
 #### Apply migrations and create your superuser (follow the prompts)
 
 ```bash
@@ -82,6 +103,10 @@ python manage.py migrate
 
 # Create a user with manage.py
 python manage.py createsuperuser
+
+[Note : After creating Superuser go to the admin panel
+and link the user with SOCIO PROFILE USER option .
+Otherwise You won`t be able to access any endpoint we have.]
 
 ```
 
@@ -104,6 +129,11 @@ error "User has no Profile"]
 
 <h2 align="center">Project Flow</h2>
 <br>
+
+#### Project Architecture
+
+This project is based on Microservices.A microservices architecture is a type of application architecture where the application is developed as a collection of services. It provides the framework to develop, deploy, and maintain microservices architecture diagrams and services independently.
+
 
 #### Project Structure 
 <br>
