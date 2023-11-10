@@ -19,6 +19,7 @@ from rest_framework.throttling import (
     AnonRateThrottle,
     UserRateThrottle
 )
+from util_base.utils._permission import IsSocian
 
 
 from accounts.models import User
@@ -34,23 +35,29 @@ from accounts.serializers import (
 ###### Login View 
 
 
-class LoginApiViews(GenericAPIView):
+class LoginApiView(GenericAPIView):
 
     serializer_class = LoginSerializer
     permission_classes = ()
     # UserRateThrottle = [AnonRateThrottle]
 
     def post(self,request):
-        serializer = LoginSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        data = serializer.validated_data
-        
+
+        data = {
+        "get_identity" : request.POST.get("username"),
+        "password" : request.POST.get("password")
+        }
+
         ## checking if ther user exists 
         ## user can input username or phone number
         match_user = User.objects.filter(
-            Q(username=data['username'])
+            Q(username=data['get_identity'])|
+            Q(socio__phone_number=data['get_identity'])|
+            Q(socio__email=data['get_identity'])
         ).only(
-            'username'
+            'username',
+            'socio__phone_number',
+            'socio__email'
         )
         if match_user.exists():
             user = authenticate(username=match_user.first().username, 
@@ -73,38 +80,54 @@ class LoginApiViews(GenericAPIView):
         },status=status.HTTP_200_OK)
 
 
-
-
-class LoginApiView(GenericAPIView):
-
-    serializer_class = LoginSerializer
-    permission_classes = ()
-    # UserRateThrottle = [AnonRateThrottle]
-
-    def post(self,request):
-        serializer = LoginSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        data = serializer.validated_data
-
-        match_user = User.objects.filter(
-            Q(username=data['username'])
-        ).only(
-            'username'
-        )
-        if match_user.exists():
-            return Response(
-                {"mile": "nai "}
-            )
-        else:
-            return Response({
-                "na": "na"
-            })
         
 
 
-class SocioCreateView(generics.CreateAPIView):
+class SocioProfileRegisterView(generics.CreateAPIView):
 
     serializer_class = CreateProfileSocioSerializer
     permission_classes = ()
     UserRateThrottle = [AnonRateThrottle]
     queryset = SocioUser.objects.filter()
+
+
+
+
+
+## Change user password 
+## old password, password, confirm password 
+
+class UserChangePasswordView(GenericAPIView):
+  throttle_classes = [UserRateThrottle]
+
+  permission_classes = [IsSocian]
+  serializer_class = UserChangePasswordSerializer
+  
+  
+  def post(self, request, format=None):
+    serializer = UserChangePasswordSerializer(data=request.data, 
+                                              context={'user':request.user})
+    serializer.is_valid(raise_exception=True)
+    return Response({'Message':'Password Changed Successfully'}, 
+                    status=status.HTTP_200_OK)
+  
+
+
+# Logout View 
+
+class APILogoutView(GenericAPIView):
+    throttle_classes = [UserRateThrottle]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, format=None):
+        try:
+
+            refresh_token = request.data.get('refresh_token')
+            token  = RefreshToken(refresh_token)
+            token.blacklist()
+
+            return Response(
+                {"message":"Current user has been Logout"},
+                status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"message":"Invalid Token"})

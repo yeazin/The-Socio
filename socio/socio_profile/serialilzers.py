@@ -108,7 +108,8 @@ class SocioProfileFuncsSerializer(TimeStampMixinSerializer):
             "profile_image",
             "get_profile_img_url",
             "phone_number",
-            "email"
+            "email",
+            "bio",
         ]
 
         read_only_fields = [
@@ -129,6 +130,7 @@ class SocioProfileDetailedSerializer(TimeStampMixinSerializer):
             "get_profile_img_url",
             "phone_number",
             "email",
+            "bio",
             "get_total_posts",
             "get_social_links",
         ]
