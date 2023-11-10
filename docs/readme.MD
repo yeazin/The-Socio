@@ -12,6 +12,12 @@
 Authentication <br> 
 Social Profile <br>
 Follow / Unfollow <br>
-Post Features 
+Post Features <br>
+API Collection <br>
 </h4> 
     
+<h3 align="center"> Authentication </h3>
+<h3 align="center"> Social Profile </h3>
+<h3 align="center"> Follow / Unfollow </h3>
+<h3 align="center"> Post Features </h3>
+<h3 align="center"> API Collection </h3>
