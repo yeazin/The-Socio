@@ -20,6 +20,7 @@ class SocioUser(TimeStampMixin):
     profile_image = models.ImageField(upload_to='media/socio/', blank=True)
     phone_number = models.CharField(max_length=11, null=True, unique=True, verbose_name="Phone Number")
     email = models.EmailField(max_length=100, unique=True, null=True, verbose_name="Email")
+    bio = models.TextField(blank=True, null=True, verbose_name="Profile Bio")
 
 
     ## Property of Socio User 
